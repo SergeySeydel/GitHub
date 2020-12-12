@@ -1,0 +1,2 @@
+nPup = new KPowerup( animation[ID_SHIP], &field,
+                               ID_SHIP );

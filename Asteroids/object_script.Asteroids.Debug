@@ -1,0 +1,12 @@
+debug/AnimItem.o
+debug/KPowerup.o
+debug/LedMeasurer.o
+debug/TopLevel.o
+debug/View.o
+debug/main.o
+debug/mainwindow.o
+debug/qrc_PortedAsteroids.o
+debug/moc_LedMeasurer.o
+debug/moc_TopLevel.o
+debug/moc_View.o
+debug/moc_mainwindow.o
