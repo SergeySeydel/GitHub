@@ -1,0 +1,12 @@
+release/AnimItem.o
+release/KPowerup.o
+release/LedMeasurer.o
+release/TopLevel.o
+release/View.o
+release/main.o
+release/mainwindow.o
+release/qrc_PortedAsteroids.o
+release/moc_LedMeasurer.o
+release/moc_TopLevel.o
+release/moc_View.o
+release/moc_mainwindow.o
