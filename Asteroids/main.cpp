@@ -5,7 +5,7 @@
 
 int main(int argc, char **argv)
 {
-    Q_INIT_RESOURCE(portedasteroids);
+    //Q_INIT_RESOURCE(portedasteroids);
 
     QApplication app(argc, argv);
 

@@ -4,7 +4,7 @@
 #include <QLayout>
 #include <QLCDNumber>
 #include <QPushButton>
-
+#include <QDebug>
 #include <QApplication>
 #include <QHBoxLayout>
 #include <QShowEvent>
@@ -289,7 +289,10 @@ void KAstTopLevel::playSound( const char * )
 
 void KAstTopLevel::keyPressEvent( QKeyEvent *event )
 {
-    if ( event->isAutoRepeat() || !actions.contains( event->key() ) )
+    auto vk = event->nativeVirtualKey();
+    auto k = event->key();
+    qDebug() << "keyPressEvent virtual: " << vk << " non virtual: "<<k;
+    if ( event->isAutoRepeat() )
     {
         event->ignore();
         return;
@@ -299,46 +302,59 @@ void KAstTopLevel::keyPressEvent( QKeyEvent *event )
 
     switch ( a )
     {
-        case RotateLeft:
-            view->rotateLeft( TRUE );
-            break;
+    case RotateLeft:
+        view->rotateLeft( TRUE );
+        break;
 
-        case RotateRight:
-            view->rotateRight( TRUE );
-            break;
+    case RotateRight:
+        view->rotateRight( TRUE );
+        break;
 
-        case Thrust:
-            view->thrust( TRUE );
-            break;
+    case Thrust:
+        view->thrust( TRUE );
+        break;
     case ResetSpeed:
         view->resetSpeed( );
         break;
-        case Shoot:
-            view->shoot( TRUE );
-            break;
+    case Shoot:
+        view->shoot( TRUE );
+        break;
+    case NewGame:
+        slotNewGame();
+        break;
+    case Shield:
+        view->setShield( TRUE );
+        break;
 
-        case Shield:
-            view->setShield( TRUE );
-            break;
+    case Teleport:
+        view->teleport( TRUE );
+        break;
 
-        case Teleport:
-            view->teleport( TRUE );
-            break;
+    case Brake:
+        view->brake( TRUE );
+        break;
 
-        case Brake:
-            view->brake( TRUE );
-            break;
-
-        default:
-            event->ignore();
+    default:
+        switch(vk)
+        {
+        case 78:
+            //accept new game virtual key
+            slotNewGame();
+            event->accept();
             return;
+        }
+        event->ignore();
+        return;
     }
     event->accept();
 }
 
 void KAstTopLevel::keyReleaseEvent( QKeyEvent *event )
 {
-    if ( event->isAutoRepeat() || !actions.contains( event->key() ) )
+    auto vk = event->nativeVirtualKey();
+    auto k = event->key();
+    qDebug() << "keyReleaseEvent virtual: " << vk << " non virtual: "<<k;
+    if ( event->isAutoRepeat() )
     {
         event->ignore();
         return;
@@ -348,56 +364,56 @@ void KAstTopLevel::keyReleaseEvent( QKeyEvent *event )
 
     switch ( a )
     {
-        case RotateLeft:
-            view->rotateLeft( FALSE );
-            break;
+    case RotateLeft:
+        view->rotateLeft( FALSE );
+        break;
 
-        case RotateRight:
-            view->rotateRight( FALSE );
-            break;
+    case RotateRight:
+        view->rotateRight( FALSE );
+        break;
 
-        case Thrust:
-            view->thrust( FALSE );
-            //view->resetSpeed();
-            break;
+    case Thrust:
+        view->thrust( FALSE );
+        //view->resetSpeed();
+        break;
 
-        case Shoot:
-            view->shoot( FALSE );
-            break;
+    case Shoot:
+        view->shoot( FALSE );
+        break;
 
-        case Brake:
-            view->brake( FALSE );
-            break;
+    case Brake:
+        view->brake( FALSE );
+        break;
 
-        case Shield:
-            view->setShield( FALSE );
-            break;
+    case Shield:
+        view->setShield( FALSE );
+        break;
 
-        case Teleport:
-            view->teleport( FALSE );
-            break;
+    case Teleport:
+        view->teleport( FALSE );
+        break;
 
-        case Launch:
-            if ( waitShip )
-            {
-                view->newShip();
-                waitShip = FALSE;
-                view->hideText();
-            }
-            else
-            {
-                event->ignore();
-                return;
-            }
-            break;
-
-        case NewGame:
-            slotNewGame();
-            break;
-
-        default:
+    case Launch:
+        if ( waitShip )
+        {
+            view->newShip();
+            waitShip = FALSE;
+            view->hideText();
+        }
+        else
+        {
             event->ignore();
             return;
+        }
+        break;
+
+    //case NewGame:
+    //    slotNewGame();
+    //    break;
+
+    default:
+        event->ignore();
+        return;
     }
 
     event->accept();
@@ -457,17 +473,17 @@ void KAstTopLevel::slotEraserHit( int size )
 {
     switch ( size )
     {
-        case 0:
-            score += 10;
-             break;
+    case 0:
+        score += 10;
+        break;
 
-        case 1:
-            score += 20;
-            break;
+    case 1:
+        score += 20;
+        break;
 
-        default:
-            score += 40;
-      }
+    default:
+        score += 40;
+    }
 
     playSound( "EraserDestroyed" );
 
@@ -491,7 +507,7 @@ void KAstTopLevel::doStats()
 {
     QString r( "0.00" );
     if ( view->shots() )
-         r = QString::number( (double)view->hits() / view->shots() * 100.0,
+        r = QString::number( (double)view->hits() / view->shots() * 100.0,
                              'g', 2 );
 
     view->showText( "Game Over.Press N for a new game.", Qt::green, FALSE );
