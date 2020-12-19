@@ -48,21 +48,21 @@ static struct
 }
 kas_animations [] =
 {
-    { ID_ERASER_LARGE,       "rock1/rock1%1.png",       32 },
-    { ID_ERASER_MEDIUM,      "rock2/rock2%1.png",       32 },
-    { ID_ERASER_SMALL,       "rock3/rock3%1.png",       32 },
-    { ID_SHIP,             "ship/ship%1.png",         32 },
-    { ID_MISSILE,          "missile/missile.png",      1 },
-    { ID_BIT,              "bits/bits%1.png",         16 },
-    { ID_EXHAUST,          "exhaust/exhaust.png",      1 },
-    { ID_ENERGY_POWERUP,   "powerups/energy.png",      1 },
-    { ID_TELEPORT_POWERUP, "powerups/teleport%1.png", 12 },
-    { ID_BRAKE_POWERUP,    "powerups/brake.png",       1 },
-    { ID_SHIELD_POWERUP,   "powerups/shield.png",      1 },
-    { ID_SHOOT_POWERUP,    "powerups/shoot.png",       1 },
-    { ID_SHIELD,           "shield/shield%1.png",      6 },
-    { ID_CARACULA,         "caracula/caracula%1.png",   2},
-    { 0,                   0,                          0 }
+{ ID_ERASER_LARGE,       "rock1/rock1%1.png",       32 },
+{ ID_ERASER_MEDIUM,      "rock2/rock2%1.png",       32 },
+{ ID_ERASER_SMALL,       "rock3/rock3%1.png",       32 },
+{ ID_SHIP,             "ship/ship%1.png",         32 },
+{ ID_MISSILE,          "missile/missile.png",      1 },
+{ ID_BIT,              "bits/bits%1.png",         16 },
+{ ID_EXHAUST,          "exhaust/exhaust.png",      1 },
+{ ID_ENERGY_POWERUP,   "powerups/energy.png",      1 },
+{ ID_TELEPORT_POWERUP, "powerups/teleport%1.png", 12 },
+{ ID_BRAKE_POWERUP,    "powerups/brake.png",       1 },
+{ ID_SHIELD_POWERUP,   "powerups/shield.png",      1 },
+{ ID_SHOOT_POWERUP,    "powerups/shoot.png",       1 },
+{ ID_SHIELD,           "shield/shield%1.png",      6 },
+{ ID_CARACULA,         "caracula/caracula%1.png",   2},
+{ 0,                   0,                          0 }
 };
 
 KAsteroidsView::KAsteroidsView( QWidget *parent)
@@ -154,8 +154,8 @@ void KAsteroidsView::newGame()
         return;
     if ( shieldOn )
     {
-      shield->hide();
-      shieldOn = FALSE;
+        shield->hide();
+        shieldOn = FALSE;
     }
     reset();
     if ( mTimerId < 0 )
@@ -296,7 +296,7 @@ void KAsteroidsView::addEraser( int num )
     for ( int i = 0; i < num; i++ )
     {
         KEraser *eraser = new KEraser( animation[ID_ERASER_LARGE], &field,
-                             ID_ERASER_LARGE, randInt(2), randInt(2) ? -1 : 1 );
+                                       ID_ERASER_LARGE, randInt(2), randInt(2) ? -1 : 1 );
         double dx = (2.0 - randDouble()*4.0) * EraserSpeed;
         double dy = (2.0 - randDouble()*4.0) * EraserSpeed;
         eraser->setVelocity( dx, dy );
@@ -435,27 +435,39 @@ void KAsteroidsView::eraserHit( AnimatedPixmapItem *hit )
     int rnd = int(randDouble()*30.0) % 30;
     switch( rnd )
     {
-      case 4:
-      case 5:
-          nPup = new KPowerup( animation[ID_ENERGY_POWERUP], &field,
-                               ID_ENERGY_POWERUP );
+    case 4:
+    case 5:
+        nPup = new KPowerup( animation[ID_ENERGY_POWERUP], &field,
+                             ID_ENERGY_POWERUP );
         break;
-      case 10:
+    case 10:
         nPup = new KPowerup( animation[ID_TELEPORT_POWERUP], &field,
-                          ID_TELEPORT_POWERUP );
+                             ID_TELEPORT_POWERUP );
         break;
-      case 15:
-          nPup = new KPowerup( animation[ID_BRAKE_POWERUP], &field,
-                               ID_BRAKE_POWERUP );
+    case 15:
+        nPup = new KPowerup( animation[ID_BRAKE_POWERUP], &field,
+                             ID_BRAKE_POWERUP );
         break;
-      case 20:
-          nPup = new KPowerup( animation[ID_SHIP], &field,
-                               ID_SHIP );
+    case 1:
+    case 2:
+    case 3:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 20:
+    case 21:
+    case 22:
+    case 23:
+    case 26:
+    case 27:
+        nPup = new KPowerup( animation[ID_SHIELD_POWERUP], &field,
+                             ID_SHIELD_POWERUP );
         break;
-      case 24:
-      case 25:
-          nPup = new KPowerup( animation[ID_SHOOT_POWERUP], &field,
-                               ID_SHOOT_POWERUP );
+    case 24:
+    case 25:
+        nPup = new KPowerup( animation[ID_SHOOT_POWERUP], &field,
+                             ID_SHOOT_POWERUP );
         break;
     }
     if ( nPup )
@@ -494,13 +506,13 @@ void KAsteroidsView::eraserHit( AnimatedPixmapItem *hit )
             if ( hit->type() == ID_ERASER_LARGE )
             {
                 neraser = new KEraser( animation[ID_ERASER_MEDIUM], &field,
-                                   ID_ERASER_MEDIUM, randInt(2), randInt(2) ? -1 : 1 );
+                                       ID_ERASER_MEDIUM, randInt(2), randInt(2) ? -1 : 1 );
                 emit eraserHit( 0 );
             }
             else
             {
                 neraser= new KEraser( animation[ID_ERASER_SMALL], &field,
-                                   ID_ERASER_SMALL, randInt(2), randInt(2) ? -1 : 1 );
+                                      ID_ERASER_SMALL, randInt(2), randInt(2) ? -1 : 1 );
                 emit eraserHit( 1 );
             }
 
@@ -621,16 +633,16 @@ void KAsteroidsView::processShip()
                     int factor;
                     switch ( (*it)->type() )
                     {
-                        case ID_ERASER_LARGE:
-                            factor = 3;
-                            break;
+                    case ID_ERASER_LARGE:
+                        factor = 3;
+                        break;
 
-                        case ID_ERASER_MEDIUM:
-                            factor = 2;
-                            break;
+                    case ID_ERASER_MEDIUM:
+                        factor = 2;
+                        break;
 
-                        default:
-                            factor = 1;
+                    default:
+                        factor = 1;
                     }
 
                     if ( factor > mShieldCount )
@@ -653,25 +665,39 @@ void KAsteroidsView::processShip()
             QList<QGraphicsItem *>::Iterator it;
             for ( it = hits.begin(); it != hits.end(); ++it )
             {
+                auto t = (*it)->type();
+                qDebug() << "Collided with " << t;
                 if ( (*it)->type() >= ID_ERASER_LARGE &&
                      (*it)->type() <= ID_ERASER_SMALL && (*it)->collidesWithItem(ship))
                 {
-                 KBit *bit;
+                    KBit *bit;
                     for ( int i = 0; i < 12; i++ )
                     {
-                     bit = new KBit( animation[ID_BIT], &field );
-                     bit->setPos( ship->x() + 5 - randDouble() * 10,
-                                   ship->y() + 5 - randDouble() * 10 );
-                     bit->setFrame( randInt(bit->frameCount()) );
-                     bit->setVelocity( 1-randDouble()*2,
-                                        1-randDouble()*2 );
-                     bit->setDeath( 60 + randInt(60) );
-                     bits.push_back( bit );
+                        bit = new KBit( animation[ID_BIT], &field );
+                        bit->setPos( ship->x() + 5 - randDouble() * 10,
+                                     ship->y() + 5 - randDouble() * 10 );
+                        bit->setFrame( randInt(bit->frameCount()) );
+                        bit->setVelocity( 1-randDouble()*2,
+                                          1-randDouble()*2 );
+                        bit->setDeath( 60 + randInt(60) );
+                        bits.push_back( bit );
                     }
                     ship->hide();
                     shield->hide();
                     emit shipKilled();
                     break;
+                }
+                else if ((*it)->type() == ID_SHIELD_POWERUP)
+                {
+                    QRectF shipRect = ship->boundingRect();
+                    qDebug() << shipRect;
+                    //auto d = this->mapFromIte(shipRect);
+                    shield->show();
+                    shield->setPos(ship->pos());
+                    shield->setFrame( 0 );
+                    shieldOn = true;
+                    shieldTimer->start(5000);
+                    int r = 0;
                 }
             }
         }
@@ -778,28 +804,28 @@ void KAsteroidsView::processShip()
         {
             if ( !shootDelay && (int)missiles.size() < mShootCount + 7 )
             {
-              KMissile *missile = new KMissile( animation[ID_MISSILE], &field );
-              missile->setPos( 21+ship->x()+cosangle*21,
-                             21+ship->y()+sinangle*21 );
-              missile->setFrame( 0 );
-              missile->setVelocity( shipDx + cosangle*MISSILE_SPEED,
-                                    shipDy + sinangle*MISSILE_SPEED );
-              missiles.push_back( missile );
-              shotsFired++;
-              reducePower( 1 );
+                KMissile *missile = new KMissile( animation[ID_MISSILE], &field );
+                missile->setPos( 21+ship->x()+cosangle*21,
+                                 21+ship->y()+sinangle*21 );
+                missile->setFrame( 0 );
+                missile->setVelocity( shipDx + cosangle*MISSILE_SPEED,
+                                      shipDy + sinangle*MISSILE_SPEED );
+                missiles.push_back( missile );
+                shotsFired++;
+                reducePower( 1 );
 
-              shootDelay = 5;
+                shootDelay = 5;
             }
 
             if ( shootDelay )
-              shootDelay--;
+                shootDelay--;
         }
 
         if ( teleportShip )
         {
             int ra = qrand() % 10;
             if( ra == 0 )
-            ra += qrand() % 20;
+                ra += qrand() % 20;
             int xra = ra * 60 + ( (qrand() % 20) * (qrand() % 20) );
             int yra = ra * 50 - ( (qrand() % 20) * (qrand() % 20) );
             ship->setPos( xra, yra );
@@ -836,23 +862,23 @@ void KAsteroidsView::processPowerups()
             {
                 switch( (*itPup)->type() )
                 {
-                  case ID_ENERGY_POWERUP:
+                case ID_ENERGY_POWERUP:
                     shipPower += 150;
                     if ( shipPower > MAX_POWER_LEVEL )
                         shipPower = MAX_POWER_LEVEL;
                     break;
-                  case ID_TELEPORT_POWERUP:
+                case ID_TELEPORT_POWERUP:
                     mTeleportCount++;
                     break;
-                  case ID_BRAKE_POWERUP:
+                case ID_BRAKE_POWERUP:
                     if ( mBrakeCount < MAX_BRAKES )
                         mBrakeCount++;
                     break;
-                  case ID_SHIELD_POWERUP:
+                case ID_SHIELD_POWERUP:
                     if ( mShieldCount < MAX_SHIELDS )
                         mShieldCount++;
                     break;
-                  case ID_SHOOT_POWERUP:
+                case ID_SHOOT_POWERUP:
                     if ( mShootCount < MAX_FIREPOWER )
                         mShootCount++;
                     break;
@@ -921,9 +947,9 @@ void KAsteroidsView::showEvent( QShowEvent *e )
     if ( !wasThere ) {
         wasThere = TRUE;
         QMessageBox::information( this, tr("QGraphicsView demo"),
-                                        tr("This game has been implemented using the QGraphicsView class.\n"
-                                           "The QGraphicsView class is not part of the Light Platform Edition. Please \n"
-                                           "contact Nokia if you want to upgrade to the Full Platform Edition.") );
+                                  tr("This game has been implemented using the QGraphicsView class.\n"
+                                     "The QGraphicsView class is not part of the Light Platform Edition. Please \n"
+                                     "contact Nokia if you want to upgrade to the Full Platform Edition.") );
     }
 #endif
 

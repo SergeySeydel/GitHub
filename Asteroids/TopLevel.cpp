@@ -291,7 +291,7 @@ void KAstTopLevel::keyPressEvent( QKeyEvent *event )
 {
     auto vk = event->nativeVirtualKey();
     auto k = event->key();
-    qDebug() << "keyPressEvent virtual: " << vk << " non virtual: "<<k;
+  //  qDebug() << "keyPressEvent virtual: " << vk << " non virtual: "<<k;
     if ( event->isAutoRepeat() )
     {
         event->ignore();
@@ -353,7 +353,7 @@ void KAstTopLevel::keyReleaseEvent( QKeyEvent *event )
 {
     auto vk = event->nativeVirtualKey();
     auto k = event->key();
-    qDebug() << "keyReleaseEvent virtual: " << vk << " non virtual: "<<k;
+//    qDebug() << "keyReleaseEvent virtual: " << vk << " non virtual: "<<k;
     if ( event->isAutoRepeat() )
     {
         event->ignore();
