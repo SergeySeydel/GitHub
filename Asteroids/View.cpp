@@ -19,7 +19,7 @@
 
 #define REFRESH_DELAY           33
 #define SHIP_SPEED              0.3
-#define MISSILE_SPEED           50.0
+#define MISSILE_SPEED           10
 #define SHIP_STEPS              64
 #define ROTATE_RATE             2
 #define SHIELD_ON_COST          1

@@ -3,7 +3,7 @@
 #define ID_MISSILE              1030
 
 #define MAX_SHIELD_AGE          350
-#define MAX_MISSILE_AGE         40
+#define MAX_MISSILE_AGE         100
 
 #include "Defines.h"
 #include "AnimItem.h"
