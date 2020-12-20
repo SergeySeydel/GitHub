@@ -388,7 +388,7 @@ void KAsteroidsView::timerEvent( QTimerEvent * )
 
 
     processShip();
-
+    processPowerups();
 
 
     if ( textSprite->isVisible() )
@@ -701,6 +701,7 @@ void KAsteroidsView::processShip()
                     shieldOn = true;
                     shieldTimer->start(5000);
                     int r = 0;
+                    ++mShieldCount;
                 }
             }
         }
@@ -840,7 +841,7 @@ void KAsteroidsView::processShip()
 
 void KAsteroidsView::processPowerups()
 {
-    qDebug () << "processPowerups fires";
+
     QList<KPowerup*>::iterator itPup = powerups.begin();
 
     while(itPup != powerups.end())
@@ -861,8 +862,10 @@ void KAsteroidsView::processPowerups()
         QList<QGraphicsItem *> hits = (*itPup)->collidingItems();
         for(QList<QGraphicsItem *>::Iterator itHits = hits.begin(); itHits != hits.end(); itHits++)
         {
+             qDebug() << "hit with before IF" << (*itPup)->type() << "and" << (*itHits)->type();
             if ( (*itHits) == ship )
             {
+                qDebug() << "hit with" << (*itPup)->type();
                 switch( (*itPup)->type() )
                 {
                 case ID_ENERGY_POWERUP:
