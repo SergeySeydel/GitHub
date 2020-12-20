@@ -155,6 +155,7 @@ void KAsteroidsView::newGame()
     if ( shieldOn )
     {
         shield->hide();
+        qDebug() << "shieldOn = FALSE due to new game";
         shieldOn = FALSE;
     }
     reset();
@@ -548,6 +549,7 @@ void KAsteroidsView::reducePower( int val )
         thrustShip = FALSE;
         if ( shieldOn )
         {
+            qDebug() << "shieldOn = FALSE due to reducePower";
             shieldOn = FALSE;
             shield->hide();
         }
@@ -647,6 +649,7 @@ void KAsteroidsView::processShip()
 
                     if ( factor > mShieldCount )
                     {
+                        qDebug() << "shieldOn = FALSE due to factor: " << factor << "shielCount:" << mShieldCount;
 
                         shieldOn = FALSE;
                         break;
@@ -668,7 +671,7 @@ void KAsteroidsView::processShip()
                 auto t = (*it)->type();
                 qDebug() << "Collided with " << t;
                 if ( (*it)->type() >= ID_ERASER_LARGE &&
-                     (*it)->type() <= ID_ERASER_SMALL && (*it)->collidesWithItem(ship))
+                     (*it)->type() <= ID_ERASER_SMALL && (*it)->collidesWithItem(ship) )
                 {
                     KBit *bit;
                     for ( int i = 0; i < 12; i++ )
@@ -837,7 +840,7 @@ void KAsteroidsView::processShip()
 
 void KAsteroidsView::processPowerups()
 {
-
+    qDebug () << "processPowerups fires";
     QList<KPowerup*>::iterator itPup = powerups.begin();
 
     while(itPup != powerups.end())
@@ -875,6 +878,7 @@ void KAsteroidsView::processPowerups()
                         mBrakeCount++;
                     break;
                 case ID_SHIELD_POWERUP:
+                    qDebug() << "processPowerups, mShieldCount:" << mShieldCount;
                     if ( mShieldCount < MAX_SHIELDS )
                         mShieldCount++;
                     break;
@@ -919,6 +923,7 @@ void KAsteroidsView::hideShield()
 {
     shield->hide();
     mShieldCount = 0;
+    qDebug() << "shieldOn = FALSE due to hideShield";
     shieldOn = FALSE;
 }
 
